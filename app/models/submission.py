@@ -16,3 +16,6 @@ class Submission(Model):
     problem = ForeignKey(Problem, on_delete=CASCADE)
     source_code = TextField()
     result = CharField(max_length=2, choices=Result, default=Result.WRONG_ANSWER)
+
+    def __str__(self):
+        return f'{self.user} + {self.problem.title}'

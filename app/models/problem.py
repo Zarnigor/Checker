@@ -15,3 +15,6 @@ class Problem(Model):
     author = ForeignKey(User, on_delete=CASCADE)
     difficulty = CharField(max_length=2, choices=Difficulty, default=Difficulty.EASY)
     is_private = BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
