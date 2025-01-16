@@ -4,8 +4,11 @@ from app.serializers import SubmissionListSerializer, ProblemListSerializer
 
 
 class SubmissionViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Submission.objects.all()
     serializer_class = SubmissionListSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Submission.objects.filter(user=user)
 
 
 class ProblemListView(viewsets.ReadOnlyModelViewSet):
