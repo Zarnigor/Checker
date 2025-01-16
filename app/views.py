@@ -1,14 +1,15 @@
 from rest_framework import viewsets
 from .models import Submission, Problem
-from app.serializers import SubmissionListSerializer, ProblemListSerializer
+from app.serializers import SubmissionListSerializer, ProblemListSerializer, SubmissionUserListSerializer
 
 
 class SubmissionViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = SubmissionListSerializer
+    queryset = Submission.objects.all()
 
-    def get_queryset(self):
-        user = self.request.user
-        return Submission.objects.filter(user=user)
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return SubmissionListSerializer
+        return SubmissionUserListSerializer
 
 
 class ProblemListView(viewsets.ReadOnlyModelViewSet):
